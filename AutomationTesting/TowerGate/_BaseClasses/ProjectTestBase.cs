@@ -20,22 +20,39 @@
 //     SOFTWARE.
 // </license>
 
-namespace Objectivity.Test.Automation.Tests.MsTest
+namespace TowerGate._BaseClasses
 {
     using System;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+    using NUnit.Framework;
     using Objectivity.Test.Automation.Common;
     using Objectivity.Test.Automation.Common.Logger;
+
+    using TechTalk.SpecFlow;
 
     /// <summary>
     /// The base class for all tests <see href="https://github.com/ObjectivityLtd/Test.Automation/wiki/ProjectTestBase-class">More details on wiki</see>
     /// </summary>
-    [TestClass]
+    [Binding]
     public class ProjectTestBase : TestBase
     {
-        private readonly DriverContext driverContext = new DriverContext();
+        public readonly ScenarioContext scenarioContext;
+        public readonly DriverContext driverContext = new DriverContext();
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProjectTestBase"/> class.
+        /// </summary>
+        /// <param name="scenarioContext"> Scenario Context </param>
+        /// 
+        public ProjectTestBase(ScenarioContext scenarioContext)
+        {
+
+            if (scenarioContext == null) throw new ArgumentNullException("scenarioContext");
+
+            this.scenarioContext = scenarioContext;
+
+
+        }
 
         /// <summary>
         /// Gets or sets logger instance for driver
@@ -54,15 +71,7 @@ namespace Objectivity.Test.Automation.Tests.MsTest
         }
 
         /// <summary>
-        /// Gets or sets the microsoft test context.
-        /// </summary>
-        /// <value>
-        /// The microsoft test context.
-        /// </value>
-        public TestContext TestContext { get; set; }
-
-        /// <summary>
-        /// Gets the driver context
+        /// Gets the browser manager
         /// </summary>
         protected DriverContext DriverContext
         {
@@ -73,37 +82,62 @@ namespace Objectivity.Test.Automation.Tests.MsTest
         }
 
         /// <summary>
+        /// Before the class.
+        /// </summary>
+        [BeforeFeature]
+        public static void BeforeClass()
+        {
+        }
+
+        /// <summary>
+        /// After the class.
+        /// </summary>
+        [AfterFeature]
+        public static void AfterClass()
+        {
+        }
+
+        /// <summary>
         /// Before the test.
         /// </summary>
-        [TestInitialize]
+        [Before]
         public void BeforeTest()
         {
             this.DriverContext.CurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            this.DriverContext.TestTitle = this.TestContext.TestName;
+            this.DriverContext.TestTitle = this.scenarioContext.ScenarioInfo.Title;
             this.LogTest.LogTestStarting(this.driverContext);
             this.DriverContext.Start();
+            this.scenarioContext["DriverContext"] = this.DriverContext;
         }
 
         /// <summary>
         /// After the test.
         /// </summary>
-        [TestCleanup]
+        [After]
         public void AfterTest()
         {
-            this.DriverContext.IsTestFailed = this.TestContext.CurrentTestOutcome == UnitTestOutcome.Failed || !this.driverContext.VerifyMessages.Count.Equals(0);
-            var filePaths = this.SaveTestDetailsIfTestFailed(this.driverContext);
-            this.SaveAttachmentsToTestContext(filePaths);
-            var javaScriptErrors = this.DriverContext.LogJavaScriptErrors();
-            this.DriverContext.Stop();
-            this.LogTest.LogTestEnding(this.driverContext);
-            if (this.IsVerifyFailedAndClearMessages(this.driverContext) && this.TestContext.CurrentTestOutcome != UnitTestOutcome.Failed)
+            try
             {
-                Assert.Fail("Look at stack trace logs for more details");
-            }
+                this.DriverContext.IsTestFailed = this.scenarioContext.TestError != null || !this.driverContext.VerifyMessages.Count.Equals(0);
+                var filePaths = this.SaveTestDetailsIfTestFailed(this.driverContext);
+                this.SaveAttachmentsToTestContext(filePaths);
+                var javaScriptErrors = this.DriverContext.LogJavaScriptErrors();
 
-            if (javaScriptErrors)
+                this.LogTest.LogTestEnding(this.driverContext);
+                if (this.IsVerifyFailedAndClearMessages(this.driverContext) && this.scenarioContext.TestError == null)
+                {
+                    Assert.Fail();
+                }
+
+                if (javaScriptErrors)
+                {
+                    Assert.Fail("JavaScript errors found. See the logs for details");
+                }
+            }
+            finally
             {
-                Assert.Fail("JavaScript errors found. See the logs for details");
+                // the context should be cleaned up no matter what
+                this.DriverContext.Stop();
             }
         }
 
@@ -114,7 +148,7 @@ namespace Objectivity.Test.Automation.Tests.MsTest
                 foreach (var filePath in filePaths)
                 {
                     this.LogTest.Info("Uploading file [{0}] to test context", filePath);
-                    this.TestContext.AddResultFile(filePath);
+                    TestContext.AddTestAttachment(filePath);
                 }
             }
         }

@@ -20,7 +20,7 @@
 //     SOFTWARE.
 // </license>
 
-namespace Objectivity.Test.Automation.Tests.PageObjects
+namespace TowerGate._BaseClasses
 {
     using Objectivity.Test.Automation.Common;
 
