@@ -1,7 +1,7 @@
 ﻿using System;
 using TechTalk.SpecFlow;
 
-namespace TowerGate_POC
+namespace TowerGate_POC.Features.NewBusinessQuote
 {
     [Binding]
     public class SpecFlowFeature1Steps
