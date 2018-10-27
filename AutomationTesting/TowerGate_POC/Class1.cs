@@ -8,5 +8,8 @@ namespace TowerGate_POC
 {
     class Class1
     {
+
+        //change made by someone else
+
     }
 }
