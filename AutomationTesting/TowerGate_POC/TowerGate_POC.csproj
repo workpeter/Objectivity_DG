@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{D21B35DA-767E-4A10-9938-455841ACE500}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>ObjectivityFramework</RootNamespace>
-    <AssemblyName>ObjectivityFramework</AssemblyName>
+    <RootNamespace>TowerGate_POC</RootNamespace>
+    <AssemblyName>TowerGate_POC</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
