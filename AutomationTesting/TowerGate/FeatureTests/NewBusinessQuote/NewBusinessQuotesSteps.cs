@@ -1,19 +1,26 @@
 ﻿
 
+using CsvHelper;
 using NUnit.Framework;
-using Objectivity.Test.Automation.Common;
-using Objectivity.Test.Automation.Common.Extensions;
-using Objectivity.Test.Automation.Tests.NUnit.DataDriven;
+
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Diagnostics;
+using System.IO;
 using System.Threading;
 using TechTalk.SpecFlow;
 using TowerGate._BaseClasses;
+using TowerGate.DataDriven.LandLord;
 using TowerGate.PageObjects;
 using static TowerGate._BaseClasses.LocalThreadDriver;
+
+
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using CsvHelper;
+
 
 namespace TowerGate.FeatureTests.NewBusinessQuote
 {
@@ -71,13 +78,53 @@ namespace TowerGate.FeatureTests.NewBusinessQuote
         {
 
 
-            IEnumerable data = TestData.CredentialsCSV();
+            String path = "C:\\Users\\workpeter\\source\\repos\\Objectivity_DG\\AutomationTesting\\TowerGate\\DataDriven\\LandLord\\users.csv";
 
-
-            foreach (IEnumerable value in data)
+            using (var sr = new StreamReader(path))
             {
-                Debug.WriteLine(value);
+                var reader = new CsvReader(sr);
+
+                //CSVReader will now read the whole file into an enumerable
+                IEnumerable<UsersContentModel> records = reader.GetRecords<UsersContentModel>();
+
+                //First X records in CSV file will be printed to the Output Window
+                foreach (UsersContentModel record in records.Take(50))
+                {
+                    Debug.WriteLine("{0}, {1}, {2}", record.user, record.password, record.message);
+                }
             }
+
+
+
+            //var path = "C:\\Users\\workpeter\\source\\repos\\Objectivity_DG\\AutomationTesting\\TowerGate\\DataDriven\\TestDataCsv.csv";
+            //IEnumerable<TestCaseData> dd = DataDrivenHelper.ReadDataDriveFileCsv(path, new[] { "user", "password" }, "credentialCsv");
+
+            // IEnumerable<int> myInts = ReturnSomething<int>();
+
+            //dd.GetEnumerator
+
+
+
+            //foreach (TestCaseData data in TestData.CredentialsCSV())
+            //{
+
+
+
+
+
+            //Debug.WriteLine("GGGGGGGGGGGGGGGGGGGGGGG" + data.Arguments[0].ToString());
+
+
+
+
+
+            // }
+
+
+
+
+
+
 
 
 

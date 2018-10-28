@@ -19,7 +19,7 @@ namespace TowerGate.PageObjects
         {
 
             driver.Value.IsElementPresent(btnQuote, BaseConfiguration.ShortTimeout);
-            driver.Value.GetElement(btnQuote).Click();
+            //driver.Value.GetElement(btnQuote).Click();
 
         }
 
