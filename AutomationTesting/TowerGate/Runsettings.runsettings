@@ -16,7 +16,7 @@
 
     <Parallelize>
       <Workers>8</Workers>
-      <Scope>ClassLevel</Scope>
+      <Scope>MethodLevel</Scope>
     </Parallelize>
    
 

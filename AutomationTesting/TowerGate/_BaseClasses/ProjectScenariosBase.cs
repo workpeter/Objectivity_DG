@@ -3,6 +3,7 @@ using Objectivity.Test.Automation.Common;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +29,13 @@ namespace TowerGate._BaseClasses
 
         }
 
+
+
+        public String GetKeyValueFromAppConfig(String key)
+        {
+
+            return ConfigurationManager.AppSettings[key];
+        }
 
     }
 }

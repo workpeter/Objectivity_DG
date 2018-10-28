@@ -16,7 +16,9 @@ namespace TowerGate.FeatureTests.AdminPanel
         public void GivenIHaveEnteredIntoTheCalculator(int p0)
         {
 
-            Thread.Sleep(15000);
+            driver.Url = "http://www.google.co.uk";
+
+            Thread.Sleep(4000);
 
         }
         

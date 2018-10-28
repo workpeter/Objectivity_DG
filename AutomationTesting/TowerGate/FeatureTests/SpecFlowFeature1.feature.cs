@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace TowerGate.FeatureTests.NewBusinessQuote
+namespace TowerGate.FeatureTests
 {
     using TechTalk.SpecFlow;
     
@@ -18,21 +18,21 @@ namespace TowerGate.FeatureTests.NewBusinessQuote
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "2.4.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("New Business Quotes")]
-    public partial class NewBusinessQuotesFeature
+    [NUnit.Framework.DescriptionAttribute("SpecFlowFeature1")]
+    public partial class SpecFlowFeature1Feature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "NewBusinessQuote.feature"
+#line 1 "SpecFlowFeature1.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "New Business Quotes", "\tThis feature supports the generation of new business quotes across multiple prod" +
-                    "ucts. ", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "SpecFlowFeature1", "\tIn order to avoid silly mistakes\r\n\tAs a math idiot\r\n\tI want to be told the sum o" +
+                    "f two numbers", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -71,31 +71,23 @@ namespace TowerGate.FeatureTests.NewBusinessQuote
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Complete the new business quote journey using thousands of different permutations" +
-            " against all products")]
-        [NUnit.Framework.CategoryAttribute("_NewBusinessQuote")]
-        [NUnit.Framework.TestCaseAttribute("PrimeLet", "8", "\\data\\input\\PrimeLet_variations.csv", "\\data\\results\\PrimeLet.csv", null)]
-        public virtual void CompleteTheNewBusinessQuoteJourneyUsingThousandsOfDifferentPermutationsAgainstAllProducts(string product, string productID, string variations_Csv, string results_Csv, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("Add two numbers")]
+        [NUnit.Framework.CategoryAttribute("mytag")]
+        public virtual void AddTwoNumbers()
         {
-            string[] @__tags = new string[] {
-                    "_NewBusinessQuote"};
-            if ((exampleTags != null))
-            {
-                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
-            }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Complete the new business quote journey using thousands of different permutations" +
-                    " against all products", null, @__tags);
-#line 6
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add two numbers", null, new string[] {
+                        "mytag"});
+#line 7
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 7
- testRunner.Given(string.Format("the user has began the {0} UI journey for new quote", product), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 8
- testRunner.When(string.Format("the quote process is repeated multiple times in accordance to the {0} file", variations_Csv), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("I have entered 50 into the calculator", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
- testRunner.Then(string.Format("the results are outputted to {0}", results_Csv), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("I have entered 70 into the calculator", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 10
- testRunner.And("the results show that every quote expectation passed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("I press add", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 11
+ testRunner.Then("the result should be 120 on the screen", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

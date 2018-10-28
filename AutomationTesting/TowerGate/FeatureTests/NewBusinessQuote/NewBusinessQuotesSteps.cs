@@ -21,9 +21,10 @@ namespace TowerGate.FeatureTests.NewBusinessQuote
         public void GivenTheUserHasBeganThePrimeLetUIJourneyForNewQuote(String product)
         {
 
-            driver.NavigateTo(new Uri(BaseConfiguration.GetUrlValue));
-            driver.IsElementPresent(PO_Homepage.btn_getQuote, BaseConfiguration.ShortTimeout);
-            driver.GetElement(PO_Homepage.btn_getQuote).Click();
+
+            driver.Url = GetKeyValueFromAppConfig("homepage_PrimeLet");
+            driver.IsElementPresent(PO_Homepage.btnQuote, BaseConfiguration.ShortTimeout);
+            driver.GetElement(PO_Homepage.btnQuote).Click();
 
             //Selenium code here, passing product variable into existing utils framework
             //To limit product execution; modify 'examples' in the feature file. 
