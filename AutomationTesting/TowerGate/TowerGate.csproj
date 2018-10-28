@@ -77,6 +77,7 @@
     <Reference Include="System.ValueTuple, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.3.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="TechTalk.SpecFlow, Version=2.4.0.0, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
@@ -111,8 +112,6 @@
     <Compile Include="ProjectBaseConfiguration.cs" />
     <Compile Include="ProjectPageBase.cs" />
     <Compile Include="ProjectTestBase.cs" />
-    <Compile Include="_BaseClasses\Runner.cs" />
-    <Compile Include="_BaseClasses\ThreadLocalDriver.cs" />
     <Compile Include="FeatureTests\AdminPanel\AdminPanel.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -120,8 +119,8 @@
     </Compile>
     <Compile Include="FeatureTests\AdminPanel\AdminPanelSteps.cs" />
     <Compile Include="FeatureTests\NewBusinessQuote\NewBusinessQuotesSteps.cs" />
-    <Compile Include="PageObjects\PO_TowerGate_Homepage.cs" />
-    <Compile Include="_BaseClasses\ProjectTestBase.cs" />
+    <Compile Include="PageObjects\PO_PL_Homepage.cs" />
+    <Compile Include="_BaseClasses\LocalThreadDriver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +143,7 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>NewBusinessQuote.feature.cs</LastGenOutput>
     </None>
+    <None Include="FeatureTests\NewBusinessQuote\TestDataCsv.csv" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>

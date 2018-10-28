@@ -74,7 +74,7 @@ namespace TowerGate.FeatureTests.NewBusinessQuote
         [NUnit.Framework.DescriptionAttribute("Complete the new business quote journey using thousands of different permutations" +
             " against all products")]
         [NUnit.Framework.CategoryAttribute("_NewBusinessQuote")]
-        [NUnit.Framework.TestCaseAttribute("PrimeLet", "8", "\\data\\input\\PrimeLet_variations.csv", "\\data\\results\\PrimeLet.csv", null)]
+        [NUnit.Framework.TestCaseAttribute("LandLord", "0", "\\data\\input\\LandLord_variations.csv", "\\data\\results\\LandLord.csv", null)]
         public virtual void CompleteTheNewBusinessQuoteJourneyUsingThousandsOfDifferentPermutationsAgainstAllProducts(string product, string productID, string variations_Csv, string results_Csv, string[] exampleTags)
         {
             string[] @__tags = new string[] {
@@ -107,14 +107,14 @@ this.ScenarioInitialize(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("NewBusinessQuote Another example", null, new string[] {
                         "_NewBusinessQuote"});
-#line 22
+#line 23
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 23
- testRunner.Given("just a random given example", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 24
- testRunner.When("just a random when example", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("just a random given example", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 25
+ testRunner.When("just a random when example", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 26
  testRunner.Then("just a random then example", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

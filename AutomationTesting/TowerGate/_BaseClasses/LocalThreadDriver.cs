@@ -23,31 +23,31 @@
 namespace TowerGate._BaseClasses
 {
     using System;
-
+    using System.Threading;
     using NUnit.Framework;
     using Objectivity.Test.Automation.Common;
     using Objectivity.Test.Automation.Common.Logger;
-    using static Runner;
-
-
-
+    using OpenQA.Selenium;
     using TechTalk.SpecFlow;
 
     /// <summary>
     /// The base class for all tests <see href="https://github.com/ObjectivityLtd/Test.Automation/wiki/ProjectTestBase-class">More details on wiki</see>
     /// </summary>
     [Binding]
-    public class ProjectTestBase : TestBase
+    public class LocalThreadDriver : TestBase
     {
         public readonly ScenarioContext scenarioContext;
-        //public readonly DriverContext driverContext = new DriverContext();
+        public readonly DriverContext driverContextInstance = new DriverContext();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProjectTestBase"/> class.
+        /// Initializes a new instance of the <see cref="LocalThreadDriver"/> class.
         /// </summary>
         /// <param name="scenarioContext"> Scenario Context </param>
         /// 
-        public ProjectTestBase(ScenarioContext scenarioContext)
+
+        public LocalThreadDriver() {}
+
+        public LocalThreadDriver(ScenarioContext scenarioContext)
         {
 
             if (scenarioContext == null) throw new ArgumentNullException("scenarioContext");
@@ -60,35 +60,29 @@ namespace TowerGate._BaseClasses
         /// <summary>
         /// Gets or sets logger instance for driver
         /// </summary>
-        /// 
-        /*
         public TestLogger LogTest
         {
             get
             {
-                return this.DriverContext.LogTest;
+                return this.DriverContextInstance.LogTest;
             }
 
             set
             {
-                this.DriverContext.LogTest = value;
+                this.DriverContextInstance.LogTest = value;
             }
         }
-        */
 
         /// <summary>
         /// Gets the browser manager
         /// </summary>
-        /// 
-        /*
-        protected DriverContext DriverContext
+        protected DriverContext DriverContextInstance
         {
             get
             {
-                return this.driverContext;
+                return this.driverContextInstance;
             }
         }
-        */
 
         /// <summary>
         /// Before the class.
@@ -109,17 +103,23 @@ namespace TowerGate._BaseClasses
         /// <summary>
         /// Before the test.
         /// </summary>
+        /// 
+
+        public static ThreadLocal<DriverContext> driverContext = new ThreadLocal<DriverContext>();
+        public static ThreadLocal<IWebDriver> driver = new ThreadLocal<IWebDriver>();
+
         [Before]
         public void BeforeTest()
         {
+            this.DriverContextInstance.CurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            this.DriverContextInstance.TestTitle = this.scenarioContext.ScenarioInfo.Title;
+            this.LogTest.LogTestStarting(this.driverContextInstance);
+            this.DriverContextInstance.Start();
+            this.scenarioContext["DriverContext"] = this.DriverContextInstance;
 
+            driverContext.Value = this.driverContextInstance;
+            driver.Value = this.driverContextInstance.Driver;
 
-            //this.DriverContext.CurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            driverContext.Value.TestTitle = this.scenarioContext.ScenarioInfo.Title;
-            //this.LogTest.LogTestStarting(this.driverContext);
-            //this.DriverContext.Start();
-            this.scenarioContext["DriverContext"] = driverContext.Value;
-       
 
         }
 
@@ -131,13 +131,13 @@ namespace TowerGate._BaseClasses
         {
             try
             {
-                driverContext.Value.IsTestFailed = this.scenarioContext.TestError != null || !driverContext.Value.VerifyMessages.Count.Equals(0);
-                var filePaths = this.SaveTestDetailsIfTestFailed(driverContext.Value);
+                this.DriverContextInstance.IsTestFailed = this.scenarioContext.TestError != null || !this.driverContextInstance.VerifyMessages.Count.Equals(0);
+                var filePaths = this.SaveTestDetailsIfTestFailed(this.driverContextInstance);
                 this.SaveAttachmentsToTestContext(filePaths);
-                var javaScriptErrors = driverContext.Value.LogJavaScriptErrors();
+                var javaScriptErrors = this.DriverContextInstance.LogJavaScriptErrors();
 
-                //this.LogTest.LogTestEnding(driverContext.Value);
-                if (this.IsVerifyFailedAndClearMessages(driverContext.Value) && this.scenarioContext.TestError == null)
+                this.LogTest.LogTestEnding(this.driverContextInstance);
+                if (this.IsVerifyFailedAndClearMessages(this.driverContextInstance) && this.scenarioContext.TestError == null)
                 {
                     Assert.Fail();
                 }
@@ -150,8 +150,26 @@ namespace TowerGate._BaseClasses
             finally
             {
                 // the context should be cleaned up no matter what
-                driverContext.Value.Stop();
+                this.DriverContextInstance.Stop();
             }
+        }
+
+
+        public void SetDriverContext(ScenarioContext scenarioContext)
+        {
+
+           if (scenarioContext == null) throw new ArgumentNullException("scenarioContext");
+            driverContext.Value = scenarioContext["DriverContext"] as DriverContext;
+
+        }
+
+
+        public void Output(String message)
+        {
+
+            TestContext.Out.WriteLine(message);
+            System.Diagnostics.Trace.WriteLine(message);
+
         }
 
         private void SaveAttachmentsToTestContext(string[] filePaths)
@@ -160,7 +178,7 @@ namespace TowerGate._BaseClasses
             {
                 foreach (var filePath in filePaths)
                 {
-                    //this.LogTest.Info("Uploading file [{0}] to test context", filePath);
+                    this.LogTest.Info("Uploading file [{0}] to test context", filePath);
                     TestContext.AddTestAttachment(filePath);
                 }
             }

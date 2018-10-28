@@ -63,6 +63,8 @@ namespace Objectivity.Test.Automation.Tests.NUnit.DataDriven
             var path = TestContext.CurrentContext.TestDirectory;
             path = string.Format(CultureInfo.CurrentCulture, "{0}{1}", path, @"\DataDriven\TestDataCsv.csv");
             return DataDrivenHelper.ReadDataDriveFileCsv(path, new[] { "user", "password" }, "credentialCsv");
+
+
         }
     }
 }
