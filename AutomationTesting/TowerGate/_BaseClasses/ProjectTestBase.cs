@@ -27,6 +27,9 @@ namespace TowerGate._BaseClasses
     using NUnit.Framework;
     using Objectivity.Test.Automation.Common;
     using Objectivity.Test.Automation.Common.Logger;
+    using static Runner;
+
+
 
     using TechTalk.SpecFlow;
 
@@ -37,7 +40,7 @@ namespace TowerGate._BaseClasses
     public class ProjectTestBase : TestBase
     {
         public readonly ScenarioContext scenarioContext;
-        public readonly DriverContext driverContext = new DriverContext();
+        //public readonly DriverContext driverContext = new DriverContext();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProjectTestBase"/> class.
@@ -57,6 +60,8 @@ namespace TowerGate._BaseClasses
         /// <summary>
         /// Gets or sets logger instance for driver
         /// </summary>
+        /// 
+        /*
         public TestLogger LogTest
         {
             get
@@ -69,10 +74,13 @@ namespace TowerGate._BaseClasses
                 this.DriverContext.LogTest = value;
             }
         }
+        */
 
         /// <summary>
         /// Gets the browser manager
         /// </summary>
+        /// 
+        /*
         protected DriverContext DriverContext
         {
             get
@@ -80,6 +88,7 @@ namespace TowerGate._BaseClasses
                 return this.driverContext;
             }
         }
+        */
 
         /// <summary>
         /// Before the class.
@@ -103,11 +112,15 @@ namespace TowerGate._BaseClasses
         [Before]
         public void BeforeTest()
         {
-            this.DriverContext.CurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            this.DriverContext.TestTitle = this.scenarioContext.ScenarioInfo.Title;
-            this.LogTest.LogTestStarting(this.driverContext);
-            this.DriverContext.Start();
-            this.scenarioContext["DriverContext"] = this.DriverContext;
+
+
+            //this.DriverContext.CurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            driverContext.Value.TestTitle = this.scenarioContext.ScenarioInfo.Title;
+            //this.LogTest.LogTestStarting(this.driverContext);
+            //this.DriverContext.Start();
+            this.scenarioContext["DriverContext"] = driverContext.Value;
+       
+
         }
 
         /// <summary>
@@ -118,13 +131,13 @@ namespace TowerGate._BaseClasses
         {
             try
             {
-                this.DriverContext.IsTestFailed = this.scenarioContext.TestError != null || !this.driverContext.VerifyMessages.Count.Equals(0);
-                var filePaths = this.SaveTestDetailsIfTestFailed(this.driverContext);
+                driverContext.Value.IsTestFailed = this.scenarioContext.TestError != null || !driverContext.Value.VerifyMessages.Count.Equals(0);
+                var filePaths = this.SaveTestDetailsIfTestFailed(driverContext.Value);
                 this.SaveAttachmentsToTestContext(filePaths);
-                var javaScriptErrors = this.DriverContext.LogJavaScriptErrors();
+                var javaScriptErrors = driverContext.Value.LogJavaScriptErrors();
 
-                this.LogTest.LogTestEnding(this.driverContext);
-                if (this.IsVerifyFailedAndClearMessages(this.driverContext) && this.scenarioContext.TestError == null)
+                //this.LogTest.LogTestEnding(driverContext.Value);
+                if (this.IsVerifyFailedAndClearMessages(driverContext.Value) && this.scenarioContext.TestError == null)
                 {
                     Assert.Fail();
                 }
@@ -137,7 +150,7 @@ namespace TowerGate._BaseClasses
             finally
             {
                 // the context should be cleaned up no matter what
-                this.DriverContext.Stop();
+                driverContext.Value.Stop();
             }
         }
 
@@ -147,7 +160,7 @@ namespace TowerGate._BaseClasses
             {
                 foreach (var filePath in filePaths)
                 {
-                    this.LogTest.Info("Uploading file [{0}] to test context", filePath);
+                    //this.LogTest.Info("Uploading file [{0}] to test context", filePath);
                     TestContext.AddTestAttachment(filePath);
                 }
             }

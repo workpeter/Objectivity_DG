@@ -15,3 +15,12 @@ Examples:
 #| BedRated		|	32			| \\data\\input\\BedRated_variations.csv		|\\data\\results\\PrimeLet.csv	|
 #| Unoccupied	|	64			| \\data\\input\\Unoccupied_variations.csv		|\\data\\results\\PrimeLet.csv	|
 #| HolidayHomes	|	128			| \\data\\input\\HolidayHomes_variations.csv	|\\data\\results\\PrimeLet.csv	|
+
+
+
+@_NewBusinessQuote
+Scenario: NewBusinessQuote Another example
+	Given just a random given example
+	When just a random when example
+	Then just a random then example
+

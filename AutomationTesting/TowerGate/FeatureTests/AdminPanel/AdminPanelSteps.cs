@@ -2,11 +2,12 @@
 using System.Threading;
 using TechTalk.SpecFlow;
 using TowerGate._BaseClasses;
+using static Runner;
 
 namespace TowerGate.FeatureTests.AdminPanel
 {
     [Binding]
-    public class AdminPanelSteps : ProjectScenariosBase
+    public class AdminPanelSteps : ThreadLocalDriver
     {
 
 
@@ -16,7 +17,7 @@ namespace TowerGate.FeatureTests.AdminPanel
         public void GivenIHaveEnteredIntoTheCalculator(int p0)
         {
 
-            driver.Url = "http://www.google.co.uk";
+            driver.Value.Url = "http://www.google.co.uk";
 
             Thread.Sleep(4000);
 

@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace TowerGate.FeatureTests.AdminPanel
+namespace TowerGate.FeatureTests.Cancellation
 {
     using TechTalk.SpecFlow;
     
@@ -18,20 +18,20 @@ namespace TowerGate.FeatureTests.AdminPanel
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "2.4.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("AdminPanel")]
-    public partial class AdminPanelFeature
+    [NUnit.Framework.DescriptionAttribute("Cancellation")]
+    public partial class CancellationFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "AdminPanel.feature"
+#line 1 "Cancalletion.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "AdminPanel", "\tIn order to avoid silly mistakes\r\n\tAs a math idiot\r\n\tI want to be told the sum o" +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Cancellation", "\tIn order to avoid silly mistakes\r\n\tAs a math idiot\r\n\tI want to be told the sum o" +
                     "f two numbers", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
@@ -71,12 +71,12 @@ namespace TowerGate.FeatureTests.AdminPanel
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Add two numbers")]
-        [NUnit.Framework.CategoryAttribute("_AdminPanel")]
-        public virtual void AddTwoNumbers()
+        [NUnit.Framework.DescriptionAttribute("Cancellation example")]
+        [NUnit.Framework.CategoryAttribute("_Cancellation")]
+        public virtual void CancellationExample()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add two numbers", null, new string[] {
-                        "_AdminPanel"});
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cancellation example", null, new string[] {
+                        "_Cancellation"});
 #line 7
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
