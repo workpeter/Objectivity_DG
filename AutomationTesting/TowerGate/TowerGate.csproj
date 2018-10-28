@@ -96,7 +96,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataDriven\LandLord\UsersContentModel.cs" />
+    <Compile Include="DataDriven\LandLord\LandLordNewQuoteDataColumns.cs" />
     <Compile Include="FeatureTests\Cancellation\Cancalletion.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -131,7 +131,7 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="DataDriven\LandLord\users.csv" />
+    <None Include="DataDriven\LandLord\LandLordNewQuoteData.csv" />
     <None Include="FeatureTests\AdminPanel\AdminPanel.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AdminPanel.feature.cs</LastGenOutput>
